@@ -1,48 +1,55 @@
+// Define a classe App, que lida com o formulário e com a exibição da lista de imóveis
 class App {
+    // Método chamado ao clicar no botão "cadastrar imóvel"
     addProperty() {
-        event.preventDefault()
-        let kind = document.querySelector("select[name='kind']").value
-        let area = document.querySelector("input[name='area']").value
-        let rented = document.querySelector("input[name='rented']").checked
-        let property = new Property(kind, area, rented)
-        
-        this.addOnPropertyList(property)
+        // Captura os valores dos inputs
+        const kind = document.querySelector("select[name='kind']").value
+        const area = document.querySelector("input[name='area']").value
+        const rented = document.querySelector("input[name='rented']").checked
 
+        // Cria uma nova propriedade usando a classe Property
+        const property = new Property(kind, area, rented)
+
+        // Chama o método que vai adicionar esse imóvel no HTML
+        this.addOnList(property)
+
+        // Limpa os campos do formulário após o envio
         this.cleanForm()
-
-
     }
-    addOnPropertyList( property){
-        let listElement = document.createElement('li')
-        let propertyInfor = ` Tipo: ${property.kind} (Área: ${property.area} m²)`
-        if(property.rented) {
-            let rentedMark = this.createRentedMark()
+
+    // Adiciona o imóvel na lista de propriedades na tela
+    addOnList(property) {
+        const listElement = document.createElement("li") // cria um <li>
+        let propertyInfo = `Tipo: ${property.kind} (${property.area}m²)` 
+
+        // Se estiver alugado, adiciona uma formatação diferente
+        if (property.rented) {
+            const rentedMark = document.createElement("span")
+            rentedMark.classList.add("rented") // aplica classe CSS "rented"
+            rentedMark.innerText = "ALUGADO"
             listElement.appendChild(rentedMark)
         }
-        listElement.innerHTML += propertyInfor
-        let buttonToRemove = this.createRemoveButton()
-        listElement.appendChild(buttonToRemove)
-        document.getElementById('properties').appendChild(listElement)
-    } 
-    createRentedMark(){
-        let rentedMark = document.createElement('span')
-        rentedMark.style.color = "white"
-        rentedMark.style.backgroundColor = "red"
-        rentedMark.innerText = "ALUGADO"
-        return rentedMark
+
+        listElement.innerHTML += propertyInfo // adiciona texto ao <li>
+
+        // Cria botão de remover
+        const removeButton = document.createElement("button")
+        removeButton.setAttribute("onclick", "app.remove()")
+        removeButton.innerText = "Remover"
+
+        listElement.appendChild(removeButton) // adiciona botão ao <li>
+        document.getElementById("property-list").appendChild(listElement) // adiciona o <li> à <ul>
     }
-    createRemoveButton(){
-        let buttonToRemove = document.createElement('button')
-        buttonToRemove.setAttribute("onclick", "app.remove()")
-        buttonToRemove.innerText = "REMOVER"
-        return buttonToRemove
+
+    // Remove o item clicado
+    remove() {
+        const liToRemove = event.target.parentNode // <li> pai do botão clicado
+        document.getElementById("property-list").removeChild(liToRemove)
     }
-    cleanForm(){
+
+    // Limpa os campos do formulário
+    cleanForm() {
         document.querySelector("input[name='area']").value = ""
         document.querySelector("input[name='rented']").checked = false
-    }
-    remove(){
-        let liToRemove = event.target.parentNode
-        document.getElementById("properties").removeChild(liToRemove)
     }
 }
