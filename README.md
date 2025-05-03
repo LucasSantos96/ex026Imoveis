@@ -1,4 +1,5 @@
-#![ex026 - Google Chrome 02_05_2025 22_12_53](https://github.com/user-attachments/assets/1c4f24c1-5eec-4a86-aabd-eaa4f6140094)
+![ex026 - Google Chrome 02_05_2025 22_12_53](https://github.com/user-attachments/assets/c91656ce-88a3-4bc1-acf7-6616729445a3)
+
  🏠 ex026Imoveis
 
 Um pequeno projeto em JavaScript puro para cadastrar e listar imóveis, criado com o objetivo de praticar manipulação do DOM, orientação a objetos e estruturação de componentes de forma limpa.
